@@ -42,7 +42,9 @@ public class BloomScripts : MonoBehaviour
             _currentSource = _currentDes;
             RenderTexture.ReleaseTemporary(_currentDes);
         }
-        Graphics.Blit(_currentSource, destination, BloomMat);
+        BloomMat.SetTexture("_SourceTex", source);
+
+        Graphics.Blit(_currentSource, destination, BloomMat,1);
         RenderTexture.ReleaseTemporary(_currentSource);
     }
 }
