@@ -6,8 +6,10 @@ public class BloomScripts : MonoBehaviour
 {
     private int _width, _height;
     private RenderTextureFormat _format;
+    private RenderTexture[] _renderTextures = new RenderTexture[16];
     [Range(1, 16)]
     public int iterations = 1;
+
 
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -16,6 +18,7 @@ public class BloomScripts : MonoBehaviour
         _height = source.height;
         _format = source.format;
         RenderTexture _currentSource = source;
+        
 
         for(int n = 0; n < iterations; n++) 
         {
@@ -28,6 +31,7 @@ public class BloomScripts : MonoBehaviour
             }
 
             RenderTexture _currentDes = RenderTexture.GetTemporary(_width, _height, 0, _format);
+            _renderTextures[n] = _currentDes;
             Graphics.Blit(_currentSource, _currentDes);
             _currentSource = _currentDes;
             RenderTexture.ReleaseTemporary(_currentDes);
