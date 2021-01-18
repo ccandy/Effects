@@ -6,14 +6,20 @@ public class BloomScripts : MonoBehaviour
 {
     private int _width, _height;
     private RenderTextureFormat _format;
-    private RenderTexture[] _renderTextures = new RenderTexture[16];
+    //private RenderTexture[] _renderTextures = new RenderTexture[16];
     [Range(1, 16)]
     public int iterations = 1;
 
-
+    public Material BloomMat;
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
+        if(BloomMat == null)
+        {
+            Debug.LogError("Bloom Mat is Null");
+            return;
+        }
+
         _width = source.width;
         _height = source.height;
         _format = source.format;
@@ -25,18 +31,18 @@ public class BloomScripts : MonoBehaviour
 
             _width /= 2;
             _height /= 2;
-            if (_height / 2 < 0)
+            if (_height / 2 < 1)
             {
-                break;
+                return;
             }
 
             RenderTexture _currentDes = RenderTexture.GetTemporary(_width, _height, 0, _format);
-            _renderTextures[n] = _currentDes;
-            Graphics.Blit(_currentSource, _currentDes);
+            //_renderTextures[n] = _currentDes;
+            Graphics.Blit(_currentSource, _currentDes, BloomMat);
             _currentSource = _currentDes;
             RenderTexture.ReleaseTemporary(_currentDes);
         }
-        Graphics.Blit(_currentSource, destination);
+        Graphics.Blit(_currentSource, destination, BloomMat);
         RenderTexture.ReleaseTemporary(_currentSource);
     }
 }
