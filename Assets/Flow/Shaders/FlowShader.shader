@@ -4,6 +4,7 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
         _FlowMap("FlowMap(RG)", 2D) = "black"{}
+        _Color("Color", color) = (1,1,1,1)
     }
     SubShader
     {
@@ -16,7 +17,6 @@
             #pragma vertex vert
             #pragma fragment frag
             
-
             #include "UnityCG.cginc"
             #include "Flow.cginc"
             struct appdata
@@ -45,12 +45,13 @@
 
             float4 frag(v2f i) : SV_Target
             {
-                // sample the texture
-
-                float2 uv = FlowUV(i.uv, _Time.y);
-
-                float4 col = tex2D(_MainTex, uv);
+                float2 flowVector = tex2D(_FlowMap, i.uv).rg * 2 - 1;
+                float3 uvw = FlowUVW(i.uv, flowVector, _Time.y);
+                float4 col = tex2D(_MainTex, uvw.xy) * uvw.z * _Color;
                 
+                
+                float3 flowCol = float3(flowVector, 0);
+
                 return col;
             }
             ENDCG
