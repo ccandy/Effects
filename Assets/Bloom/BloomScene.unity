@@ -720,7 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20ca12a010df444ca3a7de41e5ff974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iterations: 1
+  iterations: 7
   BloomMat: {fileID: 2100000, guid: f6d8b8b29f91f7243a0be79d2ba4d46e, type: 2}
 --- !u!1 &1433978713
 GameObject:
