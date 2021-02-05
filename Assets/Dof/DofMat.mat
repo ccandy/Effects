@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShadingMat
-  m_Shader: {fileID: 4800000, guid: 43efaf0cd85df544b801373703f4f464, type: 3}
+  m_Name: DofMat
+  m_Shader: {fileID: 4800000, guid: 36d22362e7ec8a441ba68febd353cf31, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
