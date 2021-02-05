@@ -30,7 +30,7 @@
                 float4 vertex : SV_POSITION;
             };
 
-            sampler2D _MainTex;
+            sampler2D _MainTex, _CameraDepthTexture;
             float4 _MainTex_ST;
 
             v2f vert (appdata v)
@@ -42,12 +42,13 @@
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            float4 frag (v2f i) : SV_Target
             {
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
-                
-                return col;
+                float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
+                //depth = LinearEyeDepth(depth);
+                return float4(depth, depth, depth,1);
             }
             ENDCG
         }
